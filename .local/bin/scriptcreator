@@ -4,7 +4,7 @@
 # creates scripts if passed all checks, change permission to executable and opens in editor
 
 scriptname=$1
-filename=~/.scripts/"$scriptname"
+filename=~/.local/bin/"$scriptname"
 
 if [[ -z "$EDITOR" ]]; then
   echo "\$EDITOR must be set"

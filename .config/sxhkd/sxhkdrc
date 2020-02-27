@@ -39,3 +39,6 @@ super + shift + h
 
 super + shift + p
         dpro
+
+# super + e ; {s, p}
+#         {deditor ~/.local/bin, deditor ~/phone_apps 1}

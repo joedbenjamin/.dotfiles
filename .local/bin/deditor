@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# script creation - 02/27/2020-01:01 
+
+
+. "${HOME}/.cache/wal/colors.sh"
+
+path=$1
+maxdepth=${2:-5}
+
+if [[ -z "$path" ]]; then
+  echo "path \$1 is required"
+  exit 1
+fi
+
+find $path -maxdepth $maxdepth | dmenu -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -i -l 20 | xargs -r $EDITOR
+

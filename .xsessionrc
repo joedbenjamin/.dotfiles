@@ -3,8 +3,9 @@ bgrandom & #random background
 xcompmgr &
 pulseaudio --start &
 sxhkd &  #bind keys
+unclutter &
 
-~/.scripts/dwmbar &
+~/.local/bin/dwmbar &
 
 while true; do
     # Log stderror to a file 

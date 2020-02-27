@@ -7,6 +7,6 @@ alias \
   ls="ls --color=auto --group-directories-first" \
   sc="scriptcreator"
 
-se() {find ~/.scripts | fzf | xargs -r $EDITOR} 
-pae() {find ~/phone_apps -maxdepth 1 | fzf | xargs -r $EDITOR}
-fe() {fzf | xargs -r $EDITOR}
+se() {deditor ~/.local/bin} 
+pae() {deditor ~/phone_apps 1}
+fe() {deditor ./ 3}

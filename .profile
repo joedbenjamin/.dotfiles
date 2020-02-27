@@ -9,6 +9,7 @@
 #umask 022
 export PATH=$PATH:~/.scripts
 export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin/bookmarks
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"

@@ -1,0 +1,1 @@
+/home/joe/.config/.dotfiles/.xinitrc

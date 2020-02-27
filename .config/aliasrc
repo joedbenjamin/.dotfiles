@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+alias \
+	ka="killall" \
+	g="git" \
+	v="$EDITOR" \
+  ls="ls --color=auto --group-directories-first" \
+  sc="scriptcreator"
+
+se() {find ~/.scripts | fzf | xargs -r $EDITOR} 
+pae() {find ~/phone_apps -maxdepth 1 | fzf | xargs -r $EDITOR}
+fe() {fzf | xargs -r $EDITOR}

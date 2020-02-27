@@ -1,0 +1,41 @@
+#basic binds
+
+super + shift + m
+        $TERMINAL -e dman . 
+
+super + r ; {s, c}
+        {(killall ffmpeg && notify screencast stopped) || (notify screencast started && screencast), (killall cheese || cheese -f)}
+
+super + shift + Return
+        st
+
+super + shift + l
+        slock & sleep 0.5 && xset dpms force off
+
+super + shift + b
+        blender
+
+super + o ; {b, c}
+        {brave-browser, google-chrome-stable}
+
+super + o ; m ; {b, c}
+        {dbookmarks brave-browser, dbookmarks google-chrome-stable}
+
+# super + s ; k
+#         (killall screenkey && notify screenkey stopped) || (notify screenkey started && screenkey_exec)
+
+super + shift + s
+        prompt "Are you sure you want to shutdown?" "shutdown -h now"
+
+super + shift + r
+        prompt "Are you sure you want to restart?" "shutdown -r now"
+
+# Make sxhkd reload its configuration files
+super + Escape
+        pkill -USR1 -x sxhkd
+
+super + shift + h
+        killall unclutter || unclutter -idle 1
+
+super + shift + p
+        dpro

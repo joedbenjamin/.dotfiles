@@ -1,0 +1,8 @@
+#!/bin/zsh
+#
+time=${3:-2}
+notify-send $1 $2
+sleep $time
+pkill notify-osd
+
+

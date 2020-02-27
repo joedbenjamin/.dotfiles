@@ -1,0 +1,37 @@
+#!/bin/bash
+# this script is used to create other scripts
+# it does some checks and exit w/ failure if checks do not pass
+# creates scripts if passed all checks, change permission to executable and opens in editor
+
+scriptname=$1
+filename=~/.scripts/"$scriptname"
+
+if [[ -z "$EDITOR" ]]; then
+  echo "\$EDITOR must be set"
+  exit 1
+fi
+
+if [[ -z "$scriptname" ]]; then
+  echo "param \$1 (scriptname) is required"
+  exit 1
+fi
+
+if [[ -e "$filename" ]]; then
+  echo "filename "$filename" already exists"
+  exit 1
+fi
+
+if type "$scriptname" 2> /dev/null; then
+  echo "command "$scriptname" already exists"
+  exit 1
+fi
+
+creationDate="$(date +"%m/%d/%Y-%H:%M")"
+
+echo "#!/bin/bash
+#
+# script creation - "$creationDate" " >> "$filename"
+
+chmod +x "$filename"
+
+"$EDITOR" "$filename"

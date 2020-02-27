@@ -1,0 +1,8 @@
+#/bin/zsh
+
+# this is used to get a dmenu of the man page search
+# by using apropos
+# Import the colors
+. "${HOME}/.cache/wal/colors.sh"
+
+man $(apropos -l $1 | dmenu -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -i -l  20 | awk '{print $1}')

@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+# This script sets the status bar with the xsetroot command at the end.  Have it 
+# started by ~/.xsessionrc
+
+# Set the delim character
+delim="|"
+
+weather(){
+  weather="$(curl -s 'wttr.in/tamarac, fl?format=1')"
+  echo "$weather"
+}
+
+dte(){
+  dte="$(date +"%a - %D - %H:%M ")"
+  echo "$dte"
+}
+
+batt(){
+# Change BAT1 to whatever your battery is identified as. Typically BAT0 or BAT1
+  CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
+  STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+  if [ "$STATUS" = "Discharging" ]; then
+    printf "BAT %s%% %s" "$CHARGE" "$STATUS"
+  else
+    printf "BAT %s%% %s" "$CHARGE" "$STATUS"
+  fi
+}
+
+volume(){
+  volume="$(amixer get Master | grep -o "[0-9]*%\|\[on\]\|\[off\]" | sed "s/\[on\]/on/;s/\[off\]/off/")"
+  echo $volume
+}
+
+while true; do
+  # echo "$(volume) $delim $(batt) $delim $(dte) "
+  xsetroot -name "$(volume) $delim $(batt) $delim $(dte) "
+  sleep 1m
+done 
+

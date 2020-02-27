@@ -1,0 +1,4 @@
+#!/bin/bash
+
+unset XMODIFIERS
+screenkey -s small --opacity .7 &

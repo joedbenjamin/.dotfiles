@@ -1,0 +1,15 @@
+#!/bin/zsh
+#
+#
+#get interface
+interface=$(iw dev | grep '^\s\+Interface' | awk '{print $2}')
+#this will make sure the wifi is up
+sudo ip link set $interface up
+#this will scan and get the SSID's in pipe into dmenu for selection
+ssid=$(sudo iw $interface scan | grep -i 'SSID:\s\+[a-z0-9]\+' | awk '{print $2}' | sort | dmenu -i -l 15)
+#get the password
+password=$(dmenu -p 'password?' <&-)
+#do the actual connection
+nmcli dev wifi connect $ssid password $password
+# echo $ssid
+# echo $password

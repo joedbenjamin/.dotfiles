@@ -1,4 +1,5 @@
 #!/bin/bash
 
 unset XMODIFIERS
-screenkey -s small --opacity .7 &
+screenkey -s small --opacity .7
+exit 0

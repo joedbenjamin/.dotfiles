@@ -9,11 +9,15 @@
 #umask 022
 export PATH=$PATH:~/.scripts
 export PATH=$PATH:~/.local/bin
-export PATH=$PATH:~/.local/bin/bookmarks
+export PATH=$PATH:~/.local/bin/browserbookmarks
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="brave"
+export DEFAULTBROWSER="brave-browser"
+export DEFAULTBROWSERWORKSPACE="9"
+export SECONDARYBROWSER="google-chrome-stable"
+export SECONDARYBROWSERWORKSPACE="8"
+
 export FILE="ranger"
 
 # if running bash

@@ -22,3 +22,5 @@ ffmpeg -y \
 # -r 30 \
 # -c:a flac ~/screen_casts/$filename.mkv
 
+exit 0
+

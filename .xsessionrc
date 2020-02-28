@@ -3,7 +3,7 @@ bgrandom & #random background
 xcompmgr &
 pulseaudio --start &
 sxhkd &  #bind keys
-unclutter &
+unclutter -idle 1 &
 
 ~/.local/bin/dwmbar &
 

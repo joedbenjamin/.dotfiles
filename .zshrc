@@ -4,14 +4,13 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:~/.scripts
-export BROWSER=/usr/bin/chromium-browser
+# export BROWSER=/usr/bin/chromium-browser
 export _JAVA_AWT_WM_NONREPARENTING=1
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/joe/.oh-my-zsh"
-
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

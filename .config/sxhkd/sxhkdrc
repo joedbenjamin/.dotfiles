@@ -16,13 +16,13 @@ super + shift + b
         blender
 
 super + o ; {b, c}
-        {brave-browser, google-chrome-stable}
+        {openbrowser true, openbrowser false}
 
 super + o ; m ; {b, c}
-        {dbookmarks brave-browser, dbookmarks google-chrome-stable}
+        {dbrowserbookmarks true, dbrowserbookmarks false}
 
-# super + s ; k
-#         (killall screenkey && notify screenkey stopped) || (notify screenkey started && screenkey_exec)
+super + s ; k
+        (killall screenkey && notify screenkey stopped) || (screenkey_exec && notify screenkey started )
 
 super + shift + s
         prompt "Are you sure you want to shutdown?" "shutdown -h now"

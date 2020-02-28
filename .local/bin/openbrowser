@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# script creation - 02/27/2020-22:11 
+
+isdefault=${1:-true}
+
+browser=$DEFAULTBROWSER
+workspace=$DEFAULTBROWSERWORKSPACE
+
+if [[ $isdefault == false ]]; then
+  browser=$SECONDARYBROWSER
+  workspace=$SECONDARYBROWSERWORKSPACE
+fi
+
+xdotool sleep 0.500 key --clearmodifiers super+$workspace
+$browser

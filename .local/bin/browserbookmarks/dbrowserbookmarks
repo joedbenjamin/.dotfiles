@@ -15,7 +15,7 @@ fi
 
 url=$(cat ~/.local/bin/browserbookmarks/bookmarks | dmenu -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -i -l 20 | awk -F'|' '{gsub(/ /, "", $2); print $2}')
 
-if [[ ! -z "$url" ]]; then
+if [[ -n "$url" ]]; then
   xdotool sleep 0.200 key --clearmodifiers super+$workspace
   $browser $url
 fi

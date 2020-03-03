@@ -2,9 +2,20 @@
 # this script is used to create other scripts
 # it does some checks and exit w/ failure if checks do not pass
 # creates scripts if passed all checks, change permission to executable and opens in editor
+# if $1 contains the / character, will treat it as a file path instead of filename
 
 scriptname=$1
-filename=~/.local/bin/"$scriptname"
+directory="$BASESCRIPTSDIRECTORY"
+filename="$scriptname"
+
+if [[ $filename = */* ]]; then
+  filename=$(basename $scriptname)
+  directory=$(dirname $scriptname)
+elif [[ -z "$directory" ]]; then
+  directory="."
+fi
+
+fullpath="$directory/$filename"
 
 if [[ -z "$EDITOR" ]]; then
   echo "\$EDITOR must be set"
@@ -16,22 +27,35 @@ if [[ -z "$scriptname" ]]; then
   exit 1
 fi
 
-if [[ -e "$filename" ]]; then
-  echo "filename "$filename" already exists"
+if [[ -e "$fullpath" ]]; then
+  echo "filename "$fullpath" already exists"
   exit 1
 fi
 
-if type "$scriptname" 2> /dev/null; then
+if type $filename 2> /dev/null; then
   echo "command "$scriptname" already exists"
   exit 1
+fi
+
+if [[ ! -d "$directory" ]]; then
+  echo "directory \"$directory\" does not exist, will you like to create it?"
+  select answer in Yes No; do
+    if [[ $answer = "Yes" ]]; then
+      mkdir "$directory" || exit 1
+      break
+    else
+      echo "script aborted"
+      exit 1
+    fi
+  done
 fi
 
 creationDate="$(date +"%m/%d/%Y-%H:%M")"
 
 echo "#!/bin/bash
 #
-# script creation - "$creationDate" " >> "$filename"
+# script creation - "$creationDate" " >> "$fullpath" || exit 1
 
-chmod +x "$filename"
+chmod +x "$fullpath"
 
-"$EDITOR" "$filename"
+"$EDITOR" "$fullpath"

@@ -1,4 +1,4 @@
-# ~/.profile: executed by the command interpreter for login shells.
+#datj ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
 # see /usr/share/doc/bash/examples/startup-files for examples.
@@ -11,12 +11,13 @@ export PATH=$PATH:~/.scripts
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.local/bin/browserbookmarks
 # Default programs:
-export EDITOR="nvim"
+export EDITOR="/home/joe/.config/nvim/nvim.appimage"
 export TERMINAL="st"
 export DEFAULTBROWSER="brave-browser"
 export DEFAULTBROWSERWORKSPACE="9"
 export SECONDARYBROWSER="google-chrome-stable"
 export SECONDARYBROWSERWORKSPACE="8"
+export BASESCRIPTSDIRECTORY="/home/joe/.local/bin"
 
 export FILE="ranger"
 

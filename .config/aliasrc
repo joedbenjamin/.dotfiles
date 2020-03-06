@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+alias \
+	ka="killall" \
+	g="git" \
+	v="$EDITOR" \
+  ls="ls --color=auto --group-directories-first" \
+  sc="scriptcreator"
+
+se() {deditor ~/.local/bin} 
+pae() {deditor ~/phone_apps 1}
+fe() {deditor ./ 3}

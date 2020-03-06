@@ -1,0 +1,67 @@
+#!/bin/bash
+# this script is used to create other scripts
+# it does some checks and exit w/ failure if checks do not pass
+# creates scripts if passed all checks, change permission to executable and opens in editor
+# if $1 contains the / character, will treat it as a file path instead of scriptname
+
+scriptname=$1
+directory="$BASESCRIPTSDIRECTORY"
+
+if [[ $scriptname = */* ]]; then
+  originalscriptname="$scriptname"
+  scriptname=$(basename $originalscriptname)
+  directory=$(dirname $originalscriptname)
+elif [[ -z "$directory" ]]; then
+  directory="."
+fi
+
+fullpath="$directory/$scriptname"
+
+if [[ -z "$EDITOR" ]]; then
+  echo "\$EDITOR must be set"
+  exit 1
+fi
+
+if [[ -z "$scriptname" ]]; then
+  echo "param \$1 (scriptname) is required"
+  exit 1
+fi
+
+if [[ -e "$fullpath" ]]; then
+  echo "filename "$fullpath" already exists"
+  exit 1
+fi
+
+if type $scriptname 2> /dev/null; then
+  echo "command "$scriptname" already exists"
+  exit 1
+fi
+
+if [[ ! -d "$directory" ]]; then
+  echo "directory \"$directory\" does not exist, will you like to create it?"
+  select answer in Yes No; do
+    if [[ $answer = "Yes" ]]; then
+      mkdir -p "$directory" || exit 1
+      break
+    else
+      echo "script aborted"
+      exit 1
+    fi
+  done
+fi
+
+if [[ ":$PATH:" != *":$directory:"* ]]; then
+  printf "\nAdd $directory to your PATH variable if you want script creator to not allow same named script to be created again in a different location.\n\n" 
+  echo "press any key to continue" && read
+fi
+
+
+creationDate="$(date +"%m/%d/%Y-%H:%M")"
+
+echo "#!/bin/bash
+#
+# script creation - "$creationDate" " >> "$fullpath" || exit 1
+
+chmod +x "$fullpath"
+
+"$EDITOR" "$fullpath"

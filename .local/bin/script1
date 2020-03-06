@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# script creation - 03/02/2020-22:30 
+
+
+echo "this is my new script"

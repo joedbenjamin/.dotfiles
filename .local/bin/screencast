@@ -1,0 +1,26 @@
+#!/bin/bash
+filename="$(date +%F_%T)"
+
+
+# ffmpeg -f alsa -i pulse -f x11grab -r 25 -s $(xdpyinfo | grep dimensions | awk '{print $2;}') -i :0.0 -acodec pcm_s16le -vcodec libx264 -preset ultrafast -crf 0 ~/screen_casts/$filename.mkv
+
+ffmpeg -y \
+-f x11grab \
+-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+-i :0.0 \
+-f alsa -i default \
+-c:v libx264 -crf 0 \
+-preset veryslow \
+-threads 0 ~/screen_casts/$filename.mkv
+# -c:a flac ~/screen_casts/$filename.mkv
+
+
+# -s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+
+# -c:v libx264 -preset veryfast -crf 5 \
+
+# -r 30 \
+# -c:a flac ~/screen_casts/$filename.mkv
+
+exit 0
+

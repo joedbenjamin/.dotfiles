@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# A demu binary prompt script.
+# Gives a dmenu prompt labeled with $1 to perform command $2.
+# For example:
+# `./prompt "Do you want to shutdown?" "shutdown -h now"`
+
+# Import the colors
+. "${HOME}/.cache/wal/colors.sh"
+
+[ $(echo -e  "No\nYes" | dmenu -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15" -i -p "$1") == "Yes" ] && $2

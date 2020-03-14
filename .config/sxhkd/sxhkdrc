@@ -4,13 +4,19 @@ super + shift + m
         $TERMINAL -e dman . 
 
 super + r ; {s, c}
-        {(killall ffmpeg && notify screencast stopped) || (notify screencast started && screencast), (killall cheese || cheese -f)}
+        {(killall ffmpeg && notify screencast stopped) || (notify screencast started && screencast), (killall mpv || mpv --no-correct-pts --no-osc --input-conf=/dev/null --title='mpvfloat' /dev/video0)}
 
 super + shift + Return
         st
 
 super + shift + l
         slock & sleep 0.5 && xset dpms force off
+
+super + shift + v
+        code
+
+super + shift + d
+        datagrip
 
 super + shift + b
         blender

@@ -5,8 +5,16 @@ alias \
 	g="git" \
 	v="$EDITOR" \
   ls="ls --color=auto --group-directories-first" \
-  sc="scriptcreator"
+  sc="scriptcreator" \
+  gldf="git log -p --full-diff" \
+  gld="git log -p" \
+  glp="git log  --pretty=format:'%cn commited %h on %ci'"
+
+# gldf - #git log for the path provided and only show all diffs for commits in the path or not
+# gld - #git log for the path provided and only show diffs for that path
 
 se() {deditor ~/.local/bin} 
 pae() {deditor ~/phone_apps 1}
 fe() {deditor ./ 3}
+dcdl() { dir=$(dchangedirectory); if [[ -n $dir ]]; then cd $dir && ls; fi}
+dcd() { dir=$(dchangedirectory); if [[ -n $dir ]]; then cd $dir; fi}

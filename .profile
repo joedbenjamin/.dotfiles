@@ -18,7 +18,7 @@ export DEFAULTBROWSERWORKSPACE="9"
 export SECONDARYBROWSER="google-chrome-stable"
 export SECONDARYBROWSERWORKSPACE="8"
 export BASESCRIPTSDIRECTORY="/home/joe/.local/bin"
-
+export _JAVA_AWT_WM_NONREPARENTING=1
 export FILE="ranger"
 
 # if running bash

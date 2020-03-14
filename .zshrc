@@ -1,6 +1,6 @@
 export PATH=$PATH:~/.scripts
 # export BROWSER=/usr/bin/chromium-browser
-# export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_AWT_WM_NONREPARENTING=1
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 

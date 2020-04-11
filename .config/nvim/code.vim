@@ -3,10 +3,10 @@ let mapleader = ","
 set nu
 set rnu
 set tabstop=2
-set shiftwidth=2
-set expandtab
-set path+=**
-set wildmenu
+" set shiftwidth=2
+" set expandtab
+" set path+=**
+" set wildmenu
 set incsearch
 set smartcase " automatically switch to case-sensitive when using uppercase
 set ignorecase
@@ -150,4 +150,5 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 " Abbreviations - Start -----------------
 iabbr joeemail joedbenjamin@gmail.com
 iabbr cs2log const {log} = console;
+hi Normal guibg=NONE ctermbg=NONE
 

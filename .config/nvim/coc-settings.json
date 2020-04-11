@@ -11,5 +11,7 @@
     ".projections.json"
   ],
   "tsserver.implicitProjectConfig.experimentalDecorators": true,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "coc.source.file.ignorePatterns": ["tsconfig.json"],
+  "eslint.enable": false
 }

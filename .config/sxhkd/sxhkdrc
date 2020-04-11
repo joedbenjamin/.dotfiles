@@ -4,10 +4,19 @@ super + shift + m
         $TERMINAL -e dman . 
 
 super + r ; {s, c}
-        {(killall ffmpeg && notify screencast stopped) || (notify screencast started && screencast), (killall mpv || mpv --no-correct-pts --no-osc --input-conf=/dev/null --title='mpvfloat' /dev/video0)}
+        {(killall ffmpeg && notify screencast stopped) || (notify screencast started && screencast), (killall guvcview || guvcview --gui=none --profile=~/default.gpfl)}
 
 super + shift + Return
         st
+
+super + shift + t
+        screenshot
+
+super + shift + k
+        kdenlive
+
+super + shift + a
+        audacity
 
 super + shift + l
         slock & sleep 0.5 && xset dpms force off
@@ -27,7 +36,7 @@ super + o ; {b, c}
 super + o ; m ; {b, c}
         {dbrowserbookmarks true, dbrowserbookmarks false}
 
-super + s ; k
+super + r ; k
         (killall screenkey && notify screenkey stopped) || (screenkey_exec && notify screenkey started )
 
 super + shift + s

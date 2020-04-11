@@ -1,4 +1,4 @@
-" Plugins - Start ---------------------
+" Plugins{{{
 call plug#begin('~/.vim/plugged')
 Plug 'tomtom/tcomment_vim'
 Plug 'morhetz/gruvbox'
@@ -7,10 +7,11 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
+Plug 'neoclide/jsonc.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'ianks/vim-tsx'
@@ -34,10 +35,9 @@ Plug 'mhartington/oceanic-next'
 Plug 'wadackel/vim-dogrun'
 Plug 'arzg/vim-colors-xcode'
 Plug 'altercation/vim-colors-solarized'
-call plug#end()
-" Plugins - End ---------------------
+call plug#end()"}}}
 
-" Settings - Start --------------------
+" Settings{{{
 set nocompatible
 " enable syntax and plugins (for netrw)
 syntax enable
@@ -48,6 +48,9 @@ set omnifunc=syntaxcomplete#Complete
 
 let mapleader = ","
 set nu
+set list
+set termguicolors 
+set background=dark
 set rnu
 set tabstop=2
 set shiftwidth=2
@@ -63,13 +66,11 @@ set smarttab
 set cindent
 " always uses spaces instead of tab characters
 set formatoptions+=j
-"set omnifunc=syntaxcomplete#Complete
-"set indentexpr=
-"set cindent
-"set smartindent
-" Settings - End   --------------------
+"To ALWAYS use the clipboard for ALL operations (instead of interacting with
+"the '+' and/or '*' registers explicitly): >
+set clipboard+=unnamedplus"}}}
 
-" Remaps - Begin  ---------------------
+" Remaps {{{
 inoremap ii' ''<Esc>i<CR><CR><Esc>k<S-s>
 inoremap <leader>' ''<Esc>i
 inoremap ii" ""<Esc>i<CR><CR><Esc>k<S-s>
@@ -90,15 +91,29 @@ inoremap jx <Esc>lxi
 inoremap jk <Esc>
 inoremap jn <Esc>hEa<CR>
 inoremap <leader>dd <Esc>ddi
-inoremap jt </<Esc>2F<lyiwf/pa><Esc>F<i
-inoremap jst </<Esc>2F<lyiwf/pa><Esc>F<i<CR><CR><Esc>kS
+inoremap <leader>> <esc>>>a
+inoremap <leader>< <esc><<a
 
-" auto close tag
+"auto close tag
+inoremap <leader>ct </<Esc>2F<lyiwf/pa><Esc>F<i
+"auto close tag with empty line
+inoremap <leader>cst </<Esc>2F<lyiwf/pa><Esc>F<i<CR><CR><Esc>kS
+inoremap ``` ``````<esc>3ha<cr><cr><esc>kS<tab>
 map ; :
-
+nnoremap <leader>cn :cnext<cr>
+nnoremap <leader>cp :cprevious<cr>
+" search for current word under cursor w/ results opening in quickfix window
+" :nnoremap <leader>gw :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ."<cr>:copen 5<cr>
+" search for current Word under cursor w/ results opening in quickfix window
+" :nnoremap <leader>gW :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen 5<cr>
+" edit vim file
+nnoremap <leader>ve :e $MYVIMRC<cr>
+" source vime file
+nnoremap <leader>vs :so $MYVIMRC<cr>
 nnoremap <leader>ms :mks! ~/.vim/sessions/session.vim<CR>
 nnoremap <leader>os :so ~/.vim/sessions/session.vim<CR>
-
+" add semicolon to end of line w/o losing location
+nnoremap <leader>; mlA;<esc>`l
 nnoremap <space><space> :noh<CR>
 nnoremap <Down>  :resize -2<CR>
 "nnoremap <Leader>p :CtrlP<CR>
@@ -133,51 +148,54 @@ nnoremap go o<Esc>
 nnoremap gO O<Esc>j
 nnoremap <c-n> :NERDTreeFind<CR>zz<c-w><c-p>
 nnoremap <c-space> :NERDTreeToggle<CR>
-nnoremap <leader>p "*p<CR> 
 nnoremap <leader>l :bnext<CR>
 nnoremap <leader>h :bprevious<CR>
 nnoremap <leader>bq :bp <BAR> bd #<CR>
 tnoremap jk <C-\><C-n>
-vnoremap <leader>y "*y<CR> 
 nnoremap Y y$
-nmap H 0
-nmap L $
 " operator mappens
 " using <c-u> to remove the range that vim may insert
 " operators act on the vim range or when using <c-u>, the selected range
 
+" delete next word
+onoremap nw :<c-u>normal! wvaw<cr>
+" delete next Word
+onoremap nW :<c-u>normal! WvaW<cr>
+" delete prev word
+onoremap pw :<c-u>normal! bvaw<cr>
+" delete prev Word
+onoremap pW :<c-u>normal! BvaW<cr>
 onoremap ih i[
 onoremap ah a[
 " all next bracket
-onoremap anh :<c-u>normal! f[va[<cr>
+onoremap an[ :<c-u>normal! f[va[<cr>
 " all last bracket
-onoremap alh :<c-u>normal! F[va[<cr>
+onoremap al[ :<c-u>normal! F[va[<cr>
 " inside next bracket
-onoremap inh :<c-u>normal! f[vi[<cr>
+onoremap in[ :<c-u>normal! f[vi[<cr>
 " inside last bracket
-onoremap ilh :<c-u>normal! F[vi[<cr>
-
+onoremap il[ :<c-u>normal! F[vi[<cr>
 onoremap ib i{
 onoremap ab a{
 " all next bracket
-onoremap anb :<c-u>normal! f{va{<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
 " all last bracket
-onoremap alb :<c-u>normal! F{va{<cr>
+onoremap al{ :<c-u>normal! F{va{<cr>
 " inside next bracket
-onoremap inb :<c-u>normal! f{vi{<cr>
+onoremap in{ :<c-u>normal! f{vi{<cr>
 " inside last bracket
-onoremap ilb :<c-u>normal! F{vi{<cr>
+onoremap il{ :<c-u>normal! F{vi{<cr>
 
 onoremap ip i(
 onoremap ap a(
 " all next parenthesis
-onoremap anp :<c-u>normal! f(va(<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
 " all last parenthesis
-onoremap alp :<c-u>normal! F(va(<cr>
+onoremap al( :<c-u>normal! f(va(<cr>
 " inside next parenthesis
-onoremap inp :<c-u>normal! f(vi(<cr>
+onoremap in( :<c-u>normal! f(vi(<cr>
 " inside last parenthesis
-onoremap ilp :<c-u>normal! F(vi(<cr>
+onoremap il( :<c-u>normal! F(vi(<cr>
 
 " all next single quote
 onoremap an' :<c-u>normal! f'va'<cr>
@@ -199,24 +217,31 @@ onoremap il" :<c-u>normal! F"vi"<cr>
 
 "j/k will move virtual lines (lines that wrap)
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j') 
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') 
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k') "
 
-" Remaps - End    ---------------------
-" Abbreviations - Start -----------------
-iabbr joeemail joedbenjamin@gmail.com
-iabbr cs2log const {log} = console;
+":NW           - Open the current visual window in a new narrowed window
+nnoremap <leader>nw :NW<CR>}}}
 
-" Git-Gutter ----------------------------------------
-nmap <leader>gn ]c
-nmap <leader>gp [c
+" Git Gutter Mappings & Settings{{{
+nmap <leader>gj ]c
+nmap <leader>gk [c
 nmap <leader>gs <leader>hs
 nmap <leader>gu <leader>hu
-nmap <leader>gl <leader>hp
-" Git-Gutter ----------------------------------------
+nmap <leader>gp <leader>hp
 
-" Abbreviations - End -----------------
-" ------------------ NERDTree Mappings & Settings Start ------------------
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = 'm'
+let g:gitgutter_sign_removed = 'd'
+let g:gitgutter_sign_removed_first_line = 'rf'
+let g:gitgutter_sign_modified_removed = 'mr'
+"}}}
 
+" Abbreviations{{{
+iabbr joeemail joedbenjamin@gmail.com
+iabbr cs2log const {log} = console;
+"}}}
+
+" NERDTree Mappings & Settings{{{
 let g:NERDTreeIgnore = ['^node_modules$']
 " Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
 " file, and we're not in vimdiff
@@ -251,19 +276,10 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "c",
     \ 'Ignored'   : 'i',
     \ "Unknown"   : "?"
-    \ }
-" ------------------ NERDTree Mappings & Settings End --------------------
+    \ }"}}}
 
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = 'm'
-let g:gitgutter_sign_removed = 'd'
-let g:gitgutter_sign_removed_first_line = 'rf'
-let g:gitgutter_sign_modified_removed = 'mr'
-
-":NW           - Open the current visual window in a new narrowed window
-nnoremap <leader>nw :NW<CR>
-
-let g:coc_global_extensions = [ 'coc-eslint', 'coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
+" Coc Settings{{{
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-prettier']
 " coc plugins
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -391,20 +407,9 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}"}}}
 
-
-" Visual Text Macros - Start
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-" Visual Text Macros - End
-set list
-set termguicolors 
-set background=dark
+" Themes{{{
 let g:gruvbox_italic=1
 " let g:gruvbox_improved_strings=1
 let g:gruvbox_invert_indent_guides=1
@@ -436,40 +441,77 @@ hi tsxAttrib guifg=#F8BD7F cterm=italic
 " light-grey
 hi tsxTypeBraces guifg=#999999
 " dark-grey
-hi tsxTypes guifg=#666666
+hi tsxTypes guifg=#666666"}}}
 
+" Visual Text Macros{{{
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+"}}}
+
+" Set File Types{{{
 augroup SetFileType
   autocmd!
   autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+  " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 augroup END
+"}}}
 
-" Vimscript file settings toggle fold with za ----------- {{{
+" xclip system copy{{{
+let g:system_copy#copy_command='xclip -sel clipboard'
+let g:system_copy#paste_command='xclip -sel clipboard -o'
+"}}}
+
+" Airline Settings{{{
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '>'
+"}}}
+
+" vim-markdown folding{{{
+let g:vim_markdown_folding_disabled = 1
+"}}}
+
+" Automatically save folds{{{
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END"}}}
+
+" Vimscript file settings {{{
 augroup filtetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
 
+" Pandoc Markdown To Pdf {{{
+function! PandocMarkdownToPdf()
+  " .expand('%:r') gets root file name and % gets full filename
+  " something like this -> !pandoc -o somefilename.pdf somefilename.md
+  write!
+  sleep ".1s"
+  execute "!pandoc -o ".expand('%:r').".pdf ".expand('%')
+endfunction
 
+augroup Pandoc
+  autocmd!
+  autocmd FileType markdown nnoremap <buffer> ,p :call PandocMarkdownToPdf()<CR><CR>
+augroup END
+"}}}
+
+" GuiCursor{{{
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
  \,sm:block-blinkwait175-blinkoff150-blinkon175
+"}}}
 
-"FOLDS:
-"------
-" Automatically save folds
-"augroup AutoSaveFolds
-  "autocmd!
-  "au BufWinLeave ?* mkview 1
-  "au BufWinEnter ?* silent loadview 1
-"augroup END
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
-" let g:airline#extensions#tabline#buffer_nr_show = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '>'
-
-let g:system_copy#copy_command='xclip -sel clipboard'
-let g:system_copy#paste_command='xclip -sel clipboard -o'
-
-hi Normal guibg=NONE ctermbg=NONE
+" Set Background - Leave at bottom of file {{{
+hi Normal guibg=NONE ctermbg=NONE"}}}
